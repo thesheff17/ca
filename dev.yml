@@ -1,0 +1,160 @@
+---
+- hosts: dev
+
+  tasks:
+  - name: check sudo access
+    shell: uptime
+    become: true
+    tags: test_sudo
+    register: shell_result
+
+  - name: print current uptime
+    debug:
+      msg: "{{ shell_result.stdout }}"
+    tags: test_sudo
+
+  - name: Upgrade all packages to the latest version
+    apt:
+      name: "*"
+      state: latest
+    become: true
+
+  - name: Install apt packages
+    apt:
+      pkg:
+        - apt-transport-https
+        - build-essential
+        - ca-certificates
+        - curl
+        - gcc
+        - g++
+        - git
+        - gnupg2
+        - gnupg-agent
+        - make
+        - mlocate
+        - python3
+        - python3-dev
+        - python3-pip
+        - software-properties-common
+        - tmux 
+        - vim 
+        - wget
+    become: true
+
+  - name: Download docker gpg key
+    get_url:
+      url:  https://download.docker.com/linux/ubuntu/gpg
+      dest: /root/docker_gpg
+    become: true
+  
+  - name: add docker mirror key
+    shell: apt-key add /root/docker_gpg
+    become: true
+
+  - name: Add Docker Repository
+    apt_repository:
+        repo: deb  https://download.docker.com/linux/ubuntu focal stable
+    become: true
+
+  - name: install docker
+    apt:
+      pkg:
+        - docker-ce 
+        - docker-ce-cli 
+        - containerd.io
+        - docker-compose
+    become: true
+
+  - name: add user to docker group
+    shell: usermod -aG docker {{ansible_env.USER}}
+    become: true
+
+  - name: upgrade pip3
+    shell: pip3 install --upgrade pip
+    become: true
+
+  - name: Install pip modules 
+    pip:
+      name: [virtualenvwrapper]
+    become: true
+
+  - name: create virtualenvwrapper directory
+    file:
+      path: "{{ansible_env.HOME}}/.virtualenv/"
+      state: directory
+
+  - name: location for python virtualenvwrapper
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^VIRTUALENVWRAPPER_PYTHON'
+      line: "VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3"
+
+  - name: adding virtualenvwrapper to bashrc
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^virtualenvwrapper.sh'
+      line: "source /usr/local/bin/virtualenvwrapper.sh"
+
+  - name: adding location for virtualenvwrapper to bashrc
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^WORKON_HOME'
+      line: "export WORKON_HOME=~/.virtualenvs"
+
+  - name: adding location for virtualenvwrapper to bashrc
+    shell: |
+      export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+      source /usr/local/bin/virtualenvwrapper.sh
+      mkvirtualenv dev
+    args:
+     executable: /bin/bash
+
+  - name: adding location for virtualenvwrapper to bashrc
+    shell: |
+      export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+      source /usr/local/bin/virtualenvwrapper.sh 
+      workon dev
+      pip install {{ item }}
+    args:
+     executable: /bin/bash
+    with_items:
+    - awscli
+    - boto3
+    - bpython
+    - django
+    - flask
+    - flask-admin
+    - flask-bcrypt
+    - flask-login
+    - flask-migrate
+    - flask-script
+    - flask-sqlalchemy
+    - flask-testing
+    - flask-wtf
+    - jupyter
+    - redis
+    - sphinx
+    - sqlalchemy
+    - zappa
+
+  - name: add kubernetes 
+    shell: |
+      snap install microk8s --classic
+    become: true
+
+  - name:
+    shell: |
+      usermod -a -G microk8s {{ansible_env.USER}}
+      chown -f -R {{ansible_env.USER}} ~/.kube
+    become: true
+
+  - name: add alias for kubernetes
+    shell: |
+      snap alias microk8s.kubectl kubectl
+    become: true
+      
+  - name: update local file database
+    shell: updatedb
+    become: true
+...
