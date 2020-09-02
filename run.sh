@@ -29,9 +29,10 @@ apt-get install -y \
 pip3 install $PIPMODULES
 
 # keys
-wget -P /home/$1/.ssh/id_rsa http://$2/keys1/id_rsa
-wget -P /home/$1/.ssh/id_rsa.pub http://$2/keys1/id_rsa.pub
+wget -O /home/$1/.ssh/id_rsa http://$2/keys1/id_rsa
+wget -O /home/$1/.ssh/id_rsa.pub http://$2/keys1/id_rsa.pub
 chmod 400 /home/$1/.ssh/id_rsa
 chmod 644 /home/$1/.ssh/id_rsa.pub
+chown -R $1:$1 /home/$1
 
 echo "run.sh completed"
