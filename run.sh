@@ -13,6 +13,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 [ ! -d "/home/$1/.ssh/" ] && mkdir -p "/home/$1/.ssh/"
+chown $1 /home/$1/.ssh/
 
 # packages
 apt-get update
