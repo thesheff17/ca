@@ -19,9 +19,7 @@ chown $1 /home/$1/.ssh/
 apt-get update
 apt-get upgrade -y
 apt-get install -y \
-    python3-dev \
     python3-pip \
-    sudo \
     tmux \
     vim \
     wget
