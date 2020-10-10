@@ -27,6 +27,8 @@ PLAY RECAP *********************************************************************
 192.168.1.247              : ok=22   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
+I run this so much you can just do: `./run.sh`
+
 More details:
 I will break everything into ansible roles as much as possible.  
 You can run individual playbooks with a single command:
