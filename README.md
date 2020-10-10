@@ -55,10 +55,10 @@ grep --color vmx /proc/cpuinfo | wc -l
 ```
 continuous_roles_watcher_mac.sh   - automatically watch the role directory on mac.
 continuous_roles_watcher_linux.sh - automatically watch the role directory on linux.
-run.sh                            - run the entire playbook once
+run.sh                            - run the entire playbook once.
 ```
 
-If you keep having vim spew temp files into the directories being watch you can fix this by adding
+If you keep having vim spew temp files into the directories being watched you can fix this by adding
 this to your `.vimrc`
 ```
 set swapfile
