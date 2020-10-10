@@ -2,7 +2,7 @@
 
 while true; do
 
-inotifywait -e modify,create,delete -r ~/git/ca/roles &&
+inotifywait -e modify -r ~/git/ca/roles &&
     time ansible-playbook dev.yml -i inventory
 
 done
