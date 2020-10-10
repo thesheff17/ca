@@ -36,3 +36,17 @@ You can run individual playbooks with a single command:
 ansible-playbook dev.yml -i inventory --tags "precheck"
 ```
 I will try to make each playbook isolated as possible. 
+
+### notes about making the remote instances
+* this won't work on a virtual devices. We expect access to the processors virtualization technology. 
+  if you think you have this and it is not enabled please check the bios. 
+
+```
+# this should say more then 0
+grep --color vmx /proc/cpuinfo | wc -l
+8
+```
+* make sure if it is a laptop to disable power management features.  Including closing the lid.
+* make sure ssh is running and installed.  `sudo apt-get install ssh && sudo systemctl enable ssh`
+* make sure you have a user called youtube and you have your public key in `.ssh/authorized_keys`
+* manage images with https://clonezilla.org/ You basically can image machines < 10 minutes.  
