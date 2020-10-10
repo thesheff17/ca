@@ -3,7 +3,7 @@
 This will quickly bootstrap a chromebook running linux with ansible.
 
 ```
-git clone https://github.com/thesheff17/ca.git && cd ca && time sudo ./run.sh thesheff17yt 192.168.1.203
+git clone https://github.com/thesheff17/ca.git && cd ca && time sudo ./ansible_client.sh thesheff17yt 192.168.1.203
 ```
 
 Now see if ansible is working correctly
