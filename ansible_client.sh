@@ -29,7 +29,7 @@ pip3 install $PIPMODULES
 # keys
 wget -O /home/$1/.ssh/id_rsa http://$2/keys1/id_rsa_ansible
 wget -O /home/$1/.ssh/id_rsa.pub http://$2/keys1/id_rsa.pub
-chmod 400 /home/$1/.ssh/id_rsa
+chmod 400 /home/$1/.ssh/id_rsa_ansible
 chmod 644 /home/$1/.ssh/id_rsa.pub
 mkdir /home/$1/.ansible/
 cp ansible.cfg /home/$1/.ansible/ansible.cfg
