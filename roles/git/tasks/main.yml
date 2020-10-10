@@ -9,4 +9,11 @@
       repo: 'https://github.com/ehsanmok/create-your-own-lang-with-rust'
       dest: "/home/{{ansible_env.USER}}/git/create-your-own-lang-with-rust"
 
+  - name: thesheff17 ca - chromebook ansible
+    git:
+      repo: 'https://github.com/thesheff17/ca.git'
+      dest: "/home/{{ansible_env.USER}}/git/ca"
+
+      
+
 ...
