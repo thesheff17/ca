@@ -6,11 +6,12 @@
         - build-essential
         - ca-certificates
         - curl
-        - gcc
+        - ctags 
         - g++
+        - gcc
         - git
-        - gnupg2
         - gnupg-agent
+        - gnupg2
         - make
         - mlocate
         - python3
