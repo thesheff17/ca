@@ -21,6 +21,7 @@ apt-get upgrade -y
 apt-get install -y \
     python3-pip \
     tmux \
+    inotify-tools \
     vim \
     wget
 
