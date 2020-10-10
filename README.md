@@ -50,3 +50,17 @@ grep --color vmx /proc/cpuinfo | wc -l
 * make sure ssh is running and installed.  `sudo apt-get install ssh && sudo systemctl enable ssh`
 * make sure you have a user called youtube and you have your public key in `.ssh/authorized_keys`
 * manage images with https://clonezilla.org/ You basically can image machines < 10 minutes.  
+
+### support scripts
+```
+continuous_roles_watcher_mac.sh   - automatically watch the role directory on mac.
+continuous_roles_watcher_linux.sh - automatically watch the role directory on linux.
+run.sh                            - run the entire playbook once
+```
+
+If you keep having vim spew temp files into the directories being watch you can fix this by adding
+this to your `.vimrc`
+```
+set swapfile
+set dir=~/tmp
+```
