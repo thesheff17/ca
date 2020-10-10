@@ -1,0 +1,6 @@
+---
+  - name: check sudo access
+    shell: uptime
+    become: true
+    tags: precheck
+...

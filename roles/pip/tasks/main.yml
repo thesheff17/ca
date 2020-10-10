@@ -1,0 +1,72 @@
+---
+  - name: upgrade pip3
+    shell: pip3 install --upgrade pip
+    become: true
+    tags: pip
+
+  - name: install pip modules 
+    pip:
+      name: [virtualenvwrapper]
+    become: true
+    tags: pip
+
+  - name: create virtualenvwrapper directory
+    file:
+      path: "{{ansible_env.HOME}}/.virtualenv/"
+      state: directory
+    tags: pip
+
+  - name: location for python virtualenvwrapper
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^VIRTUALENVWRAPPER_PYTHON'
+      line: "VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3"
+    tags: pip
+
+  - name: adding virtualenvwrapper to bashrc
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^virtualenvwrapper.sh'
+      line: "source /usr/local/bin/virtualenvwrapper.sh"
+    tags: pip
+
+  - name: adding location for virtualenvwrapper to bashrc
+    lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      regexp: '^WORKON_HOME'
+      line: "export WORKON_HOME=~/.virtualenv"
+    tags: pip
+
+  - name: adding location for virtualenvwrapper to bashrc
+    shell: |
+      export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+      source /usr/local/bin/virtualenvwrapper.sh
+      mkvirtualenv dev
+    args:
+     executable: /bin/bash
+    tags: pip
+
+  - name: install pip packages
+    pip:
+      name:
+        - boto3
+        - awscli
+        - bpython
+        - django
+        - flask
+        - flask-admin
+        - flask-bcrypt
+        - flask-login
+        - flask-migrate
+        - flask-script
+        - flask-sqlalchemy
+        - flask-testing
+        - flask-wtf
+        - jupyter
+        - redis
+        - sphinx
+        - sqlalchemy
+        - zappa
+      virtualenv: "/home/{{ansible_env.USER}}/.virtualenv/dev"
+    tags: pip
+...

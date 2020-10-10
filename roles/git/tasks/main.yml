@@ -1,0 +1,12 @@
+---
+  - name: linux kernel 
+    git:
+      repo: 'https://github.com/torvalds/linux.git'
+      dest: "/home/{{ansible_env.USER}}/git/linux"
+
+  - name: create rust lang with rust
+    git:
+      repo: 'https://github.com/ehsanmok/create-your-own-lang-with-rust'
+      dest: "/home/{{ansible_env.USER}}/git/create-your-own-lang-with-rust"
+
+...

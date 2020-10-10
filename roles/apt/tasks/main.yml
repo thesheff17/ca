@@ -1,0 +1,25 @@
+---
+  - name: install apt packages
+    apt:
+      pkg:
+        - apt-transport-https
+        - build-essential
+        - ca-certificates
+        - curl
+        - gcc
+        - g++
+        - git
+        - gnupg2
+        - gnupg-agent
+        - make
+        - mlocate
+        - python3
+        - python3-dev
+        - python3-pip
+        - software-properties-common
+        - tmux
+        - vim
+        - wget
+    become: true
+    tags: apt
+...

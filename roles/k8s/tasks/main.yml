@@ -1,0 +1,19 @@
+---
+  - name: add kubernetes 
+    shell: |
+      snap install microk8s --classic
+    become: true
+    tags: k8s
+
+  - name: add user to k8s group
+    shell: |
+      usermod -a -G microk8s {{ansible_env.USER}}   
+    become: true
+    tags: k8s
+
+  - name: add alias for kubernetes
+    shell: |
+      snap alias microk8s.kubectl kubectl
+    become: true
+    tags: k8s
+...
