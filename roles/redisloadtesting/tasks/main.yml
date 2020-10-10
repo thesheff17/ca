@@ -1,0 +1,11 @@
+---
+  - name: "install redit load testing tool"
+    command: "{{ item }}"
+    loop:
+      - autoreconf -ivf
+      - ./configure 
+      - make -j4
+      - ./memtier_benchmark --hide-histogram
+    args:
+      chdir: /home/{{ansible_env.USER}}/git/memtier_benchmark/
+...

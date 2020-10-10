@@ -1,0 +1,6 @@
+---
+  - name: update local file database
+    shell: updatedb
+    become: true
+    tags: updatedb
+...
