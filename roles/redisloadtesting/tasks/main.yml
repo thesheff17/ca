@@ -1,5 +1,5 @@
 ---
-  - name: "install redit load testing tool"
+  - name: "install redis load testing tool"
     command: "{{ item }}"
     loop:
       - autoreconf -ivf
