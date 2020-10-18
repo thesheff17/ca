@@ -18,4 +18,11 @@
     git:
       repo: 'https://github.com/RedisLabs/memtier_benchmark.git'
       dest: "/home/{{ansible_env.USER}}/git/memtier_benchmark"    
+
+  - name: ctags for linux kernel
+    command: ctags -R .
+    async: 300
+    poll: 0
+    args:
+      chdir: "/home/{{ansible_env.USER}}/git/linux"
 ...
