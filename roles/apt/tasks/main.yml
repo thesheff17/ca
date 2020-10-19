@@ -7,6 +7,7 @@
         - automake 
         - build-essential
         - ca-certificates
+        - cmake
         - ctags 
         - curl
         - g++
@@ -16,6 +17,7 @@
         - gnupg2
         - golang
         - htop
+        - inotify-tools
         - libevent-dev 
         - libpcre3-dev 
         - libssl-dev
@@ -23,6 +25,7 @@
         - mlocate
         - mysql-server
         - nodejs
+        - npm
         - openjdk-14-jdk
         - pkg-config
         - postgresql-server-dev-all

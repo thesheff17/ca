@@ -49,9 +49,10 @@
   - name: install pip packages
     pip:
       name:
-        - boto3
+        - ansible
         - awscli
         - bpython
+        - boto3
         - django
         - flask
         - flask-admin

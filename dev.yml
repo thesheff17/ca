@@ -8,6 +8,7 @@
     - pip
     - k8s
     - git
-    - redisloadtesting
+    # - redisloadtesting
+    - vim
     - updatedb
 ...

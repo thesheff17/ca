@@ -62,5 +62,4 @@ If you keep having vim spew temp files into the directories being watched you ca
 this to your `.vimrc`
 ```
 set swapfile
-set dir=~/tmp
-```
+set dir=/tmp
