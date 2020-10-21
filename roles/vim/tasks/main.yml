@@ -3,41 +3,79 @@
       src: vimrc
       dest: "/home/{{ansible_env.USER}}/.vimrc"
 
-  - name: cloning nerd tree git repo
-    git:
-      repo: 'https://github.com/preservim/nerdtree.git'
-      dest: "/home/{{ansible_env.USER}}/.vim/pack/vendor/start/nerdtree"
+  - name: creating directories for vim install
+    file:
+      path: "{{ item }}"
+      state: directory
+      mode: '0755'
+    loop:
+      - /home/{{ansible_env.USER}}/.vim/colors
+      - /home/{{ansible_env.USER}}/.vim/autoload
+      - /home/{{ansible_env.USER}}/.vim/bundle
 
-  - name: cloning YouCompleteMe git repo
-    git:
-      repo: 'https://github.com/ycm-core/YouCompleteMe.git'
-      dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
+  - name: download pathogen file
+    get_url:
+      url: https://tpo.pe/pathogen.vim
+      dest: /home/{{ansible_env.USER}}/.vim/autoload/pathogen.vim
+
+  - copy:
+      src: wombat256mod.vim
+      dest: "/home/{{ansible_env.USER}}/.vim/colors/wombat256mod.vim"
 
   - name: cloning vundle git repo
     git:
       repo: 'https://github.com/VundleVim/Vundle.vim.git'
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/Vundle.vim"
 
+  - name: cloning nerd tree git repo
+    git:
+      repo: 'https://github.com/preservim/nerdtree.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/pack/vendor/start/nerdtree"
+
+  - name: cloning vim-go git repo
+    git:
+      repo: 'https://github.com/fatih/vim-go.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/pack/plugins/start/vim-go"
+
+  - name: "install vim-go"
+    command: "{{ item }}"
+    loop:
+      - vim +GoInstallBinaries +qall
+
+  - name: cloning YouCompleteMe git repo
+    git:
+      repo: 'https://github.com/ycm-core/YouCompleteMe.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
+
   - name: "install YouCompleteMe"
     command: "{{ item }}"
+    async: 300
+    poll: 0
     loop:
       - git submodule update --init --recursive
       - python3 install.py --all
     args:
       chdir: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe/"
 
-  - name: Create a directory if it does not exist
-    file:
-      path: /home/{{ansible_env.USER}}/.vim/colors
-      state: directory
-      mode: '0755'
+  - name: cloning fugitive git repo
+    git:
+      repo: 'https://tpope.io/vim/fugitive.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/pack/tpope/start/fugitive"
 
-  - copy:
-      src: wombat256mod.vim
-      dest: "/home/{{ansible_env.USER}}/.vim/colors/wombat256mod.vim"
+  - name: "install fugitive"
+    command: "{{ item }}"
+    loop:
+      - vim -u NONE -c "helptags fugitive/doc" -c q
+    args:
+        chdir: /home/{{ansible_env.USER}}/.vim/pack/tpope/start
 
   - name: "install nerd tree"
     command: "{{ item }}"
     loop:
       - vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+
+  - name: syntastic git repo
+    git:
+      repo: 'https://github.com/vim-syntastic/syntastic.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/bundle/syntastic"
 ...

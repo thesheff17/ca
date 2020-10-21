@@ -12,12 +12,17 @@
   - name: thesheff17 ca - chromebook ansible
     git:
       repo: 'https://github.com/thesheff17/ca.git'
-      dest: "/home/{{ansible_env.USER}}/git/ca"   
+      dest: "/home/{{ansible_env.USER}}/git/ca"
 
   - name: reddit load testing
     git:
       repo: 'https://github.com/RedisLabs/memtier_benchmark.git'
-      dest: "/home/{{ansible_env.USER}}/git/memtier_benchmark"    
+      dest: "/home/{{ansible_env.USER}}/git/memtier_benchmark"
+
+  - name: golangexamples github
+    git:
+      repo: 'https://github.com/thesheff17/golangexamples.git'
+      dest: "/home/{{ansible_env.USER}}/git/golangexamples"
 
   #- name: ctags for linux kernel
   #  command: ctags -R .
