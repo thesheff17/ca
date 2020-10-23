@@ -4,7 +4,7 @@
     - precheck
     - apt
     - git
-    - docker 
+    - docker
     - pip
     - k8s
     - git

@@ -27,6 +27,19 @@
       repo: 'https://github.com/VundleVim/Vundle.vim.git'
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/Vundle.vim"
 
+  - name: cloning YouCompleteMe git repo
+    git:
+      repo: 'https://github.com/ycm-core/YouCompleteMe.git'
+      dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
+
+  - name: "install YouCompleteMe"
+    command: "{{ item }}"
+    loop:
+      - git submodule update --init --recursive
+      - python3 install.py --all
+    args:
+      chdir: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe/"
+
   - name: cloning nerd tree git repo
     git:
       repo: 'https://github.com/preservim/nerdtree.git'
@@ -41,21 +54,6 @@
     command: "{{ item }}"
     loop:
       - vim +GoInstallBinaries +qall
-
-  - name: cloning YouCompleteMe git repo
-    git:
-      repo: 'https://github.com/ycm-core/YouCompleteMe.git'
-      dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
-
-  - name: "install YouCompleteMe"
-    command: "{{ item }}"
-    async: 300
-    poll: 0
-    loop:
-      - git submodule update --init --recursive
-      - python3 install.py --all
-    args:
-      chdir: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe/"
 
   - name: cloning fugitive git repo
     git:

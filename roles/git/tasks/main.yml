@@ -1,8 +1,27 @@
 ---
-  #- name: linux kernel
-  #  git:
-  #    repo: 'https://github.com/torvalds/linux.git'
-  #    dest: "/home/{{ansible_env.USER}}/git/linux"
+  - name: download linux.tar.gz
+    get_url:
+      url: http://movies.sheffner.com/movies2/linux.tar.gz
+      dest: "/home/{{ansible_env.USER}}/git/linux.tar.gz"
+    tags: linuxkernel
+
+  - name: extract linux.tar.gz
+    command: tar -xf linux.tar.gz
+    args:
+      chdir: "/home/{{ansible_env.USER}}/git/"
+    tags: linuxkernel
+
+  - name: removing linux.tar.gx
+    file:
+      path: /home/{{ansible_env.USER}}/git/linux.tar.gz
+      state: absent
+    tags: linuxkernel
+
+  - name: linux kernel
+    git:
+      repo: 'https://github.com/torvalds/linux.git'
+      dest: "/home/{{ansible_env.USER}}/git/linux"
+    tags: linuxkernel
 
   - name: create rust lang with rust
     git:
