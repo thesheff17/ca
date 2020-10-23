@@ -1,0 +1,59 @@
+---
+- name: golang version
+  command: go version
+  register: golang_version
+
+- name: java version
+  command: java --version | grep openjdk
+  register: java_version
+
+- name: terraform version
+  command: terraform --version
+  register: terraform_version
+
+- name: python3 version
+  command: python3 -V
+  register: python3_version
+
+- name: node version
+  command: node -v
+  register: node_version
+
+- name: npm version
+  command: npm -v
+  register: npm_version
+
+- name: rust version
+  command: rustc --version
+  register: rust_version
+
+- name: docker version
+  command: docker --version
+  register: docker_version
+
+- name: kubectl version
+  command: kubectl version
+  register: kubectl_version
+
+- name: mysql version
+  command: mysqld --version
+  register: mysql_version
+
+- name: redis version
+  command: redis-server --version
+  register: redis_version
+
+- debug:
+    msg:
+      - "{{ golang_version.stdout }}"
+      - "{{ java_version.stdout }}"
+      - "{{ python3_version.stdout }}"
+      - "{{ terraform_version.stdout }}"
+      - "node: {{ node_version.stdout }}"
+      - "npm: {{ npm_version.stdout }}"
+      - "{{ rust_version.stdout }}"
+      - "{{ docker_version.stdout }}"
+      - "kubectl: {{ kubectl_version.stdout }}"
+      - "{{ mysql_version.stdout }}"
+      - "{{ redis_version.stdout }}"
+...

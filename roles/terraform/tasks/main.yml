@@ -1,0 +1,26 @@
+---
+  - name: download terraform gpg key
+    get_url:
+      url: https://apt.releases.hashicorp.com/gpg
+      dest: /root/terraform_gpg
+    become: true
+    tags: terrforam
+
+  - name: add terraform gpg key
+    shell: apt-key add /root/terraform_gpg
+    become: true
+    tags: terraform
+
+  - name: add terraform repo
+    apt_repository:
+      repo: deb [arch=amd64] https://apt.releases.hashicorp.com focal main
+    become: true
+    tags: terraform
+
+  - name: install terraform
+    apt:
+      pkg:
+        - terraform
+    become: true
+    tags: terraform
+...
