@@ -39,7 +39,9 @@
         - rustc
         - software-properties-common
         - tmux
+        - vagrant
         - vim
+        - virtualbox
         - wget
         - zlib1g-dev
     become: true

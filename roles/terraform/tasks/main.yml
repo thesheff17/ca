@@ -23,4 +23,32 @@
         - terraform
     become: true
     tags: terraform
+
+  - name: install terraform auto complete for root user
+    shell: terraform -install-autocomplete
+    become: true
+    tags: terraform
+    ignore_errors: yes
+
+  - name: install terraform auto complete for non root user
+    shell: terraform -install-autocomplete
+    tags: terraform
+    ignore_errors: yes
+
+  - name: create terraform sample directory
+    file:
+      path: "/home/{{ansible_env.USER}}/terraformsamples/"
+      state: directory
+
+  - copy:
+      src: main.tf
+      dest: "/home/{{ansible_env.USER}}/terraformsamples/main.tf"
+
+  - name: terrform commands
+    command: "{{ item }}"
+    loop:
+        - terraform init
+        - terraform apply -auto-approve
+    args:
+        chdir: /home/{{ansible_env.USER}}/terraformsamples/
 ...
