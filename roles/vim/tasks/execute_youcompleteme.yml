@@ -1,0 +1,12 @@
+---
+- name: Async sleeping for batched_items
+  command:  "{{ async_item }}"
+  async: 300
+  poll: 0
+  loop: "{{ durations }}"
+  loop_control:
+    loop_var: "async_item"
+  register: async_results1
+  args:
+    chdir: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe/"
+...
