@@ -56,4 +56,5 @@
       - "kubectl: {{ kubectl_version.stdout }}"
       - "{{ mysql_version.stdout }}"
       - "{{ redis_version.stdout }}"
+      - "ansible vcpu: {{ ansible_processor_vcpus }}"
 ...

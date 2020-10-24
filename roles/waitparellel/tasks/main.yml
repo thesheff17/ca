@@ -1,0 +1,11 @@
+---
+- name: waiting for youcomplete me to finish installing
+  async_status:
+    jid: "{{ async_result_item1.ansible_job_id }}"
+  loop: "{{ async_results1.results }}"
+  loop_control:
+    loop_var: "async_result_item1"
+  register: async_poll_results1
+  until: async_poll_results1.finished
+  retries: 30
+...

@@ -10,23 +10,23 @@
     shell: apt-key add /root/docker_gpg
     become: true
     tags: docker
-  
+
   - name: add docker repository
     apt_repository:
-      repo: deb  https://download.docker.com/linux/ubuntu focal stable
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
     become: true
     tags: docker
-  
+
   - name: install docker
     apt:
       pkg:
-        - docker-ce 
-        - docker-ce-cli 
+        - docker-ce
+        - docker-ce-cli
         - containerd.io
         - docker-compose
     become: true
     tags: docker
-  
+
   - name: add user to docker group
     shell: usermod -aG docker {{ansible_env.USER}}
     become: true

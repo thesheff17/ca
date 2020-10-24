@@ -3,6 +3,7 @@
   roles:
     - precheck
     - apt
+    - vim
     - terraform
     - vagrant
     - git
@@ -11,7 +12,7 @@
     - k8s
     - git
     # - redisloadtesting
-    - vim
     - updatedb
+    - waitparellel
     - versions
 ...
