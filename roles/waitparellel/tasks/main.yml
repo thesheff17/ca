@@ -8,4 +8,5 @@
   register: async_poll_results1
   until: async_poll_results1.finished
   retries: 30
+  tags: vim
 ...

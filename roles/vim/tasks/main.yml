@@ -2,6 +2,7 @@
   - copy:
       src: vimrc
       dest: "/home/{{ansible_env.USER}}/.vimrc"
+    tags: vim
 
   - name: creating directories for vim install
     file:
@@ -12,25 +13,30 @@
       - /home/{{ansible_env.USER}}/.vim/colors
       - /home/{{ansible_env.USER}}/.vim/autoload
       - /home/{{ansible_env.USER}}/.vim/bundle
+    tags: vim
 
   - name: download pathogen file
     get_url:
       url: https://tpo.pe/pathogen.vim
       dest: /home/{{ansible_env.USER}}/.vim/autoload/pathogen.vim
+    tags: vim
 
   - copy:
       src: wombat256mod.vim
       dest: "/home/{{ansible_env.USER}}/.vim/colors/wombat256mod.vim"
+    tags: vim
 
   - name: cloning vundle git repo
     git:
       repo: 'https://github.com/VundleVim/Vundle.vim.git'
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/Vundle.vim"
+    tags: vim
 
   - name: cloning YouCompleteMe git repo
     git:
       repo: 'https://github.com/ycm-core/YouCompleteMe.git'
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
+    tags: vim
 
   - name: running youcomplete me with async calls
     vars:
@@ -40,26 +46,31 @@
       durations: "{{ item }}"
     include_tasks: execute_youcompleteme.yml
     loop: "{{ my_commands | batch(1) | list }}"
+    tags: vim
 
   - name: cloning nerd tree git repo
     git:
       repo: 'https://github.com/preservim/nerdtree.git'
       dest: "/home/{{ansible_env.USER}}/.vim/pack/vendor/start/nerdtree"
+    tags: vim
 
   - name: cloning vim-go git repo
     git:
       repo: 'https://github.com/fatih/vim-go.git'
       dest: "/home/{{ansible_env.USER}}/.vim/pack/plugins/start/vim-go"
+    tags: vim
 
   - name: "install vim-go"
     command: "{{ item }}"
     loop:
       - vim +GoInstallBinaries +qall
+    tags: vim
 
   - name: cloning fugitive git repo
     git:
       repo: 'https://tpope.io/vim/fugitive.git'
       dest: "/home/{{ansible_env.USER}}/.vim/pack/tpope/start/fugitive"
+    tags: vim
 
   - name: "install fugitive"
     command: "{{ item }}"
@@ -67,14 +78,17 @@
       - vim -u NONE -c "helptags fugitive/doc" -c q
     args:
         chdir: /home/{{ansible_env.USER}}/.vim/pack/tpope/start
+    tags: vim
 
   - name: "install nerd tree"
     command: "{{ item }}"
     loop:
       - vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+    tags: vim
 
   - name: syntastic git repo
     git:
       repo: 'https://github.com/vim-syntastic/syntastic.git'
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/syntastic"
+    tags: vim
 ...

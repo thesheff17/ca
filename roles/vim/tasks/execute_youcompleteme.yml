@@ -9,4 +9,5 @@
   register: async_results1
   args:
     chdir: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe/"
+  tags: vim
 ...
