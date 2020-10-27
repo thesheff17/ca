@@ -4,15 +4,16 @@
     - precheck
     - apt
     - vim
+    - pythonfromsource
+    - docker
     - terraform
     - vagrant
     - git
-    - docker
     - pip
     - k8s
     - git
     # - redisloadtesting
-    - updatedb
     - waitparellel
+    - updatedb
     - versions
 ...

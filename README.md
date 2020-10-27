@@ -37,11 +37,18 @@ ansible-playbook dev.yml -i inventory --tags "precheck"
 ```
 I will try to make each playbook isolated as possible.
 
-You can also limit to just the vim role.  Many times I come to a new computer
-and I need to setup vim.  You will need java, npm, rust, golang, build
-essential, and ctags to compile YouCompleteMe correctly.
+You can also limit to just the vim role.  Many times I come to a computer
+that is not controlled by ansible.  This leads to problems but you should be
+able to run the vim role against this box to get it into a dev box. Here is a
+small sample of what is required to get the vim role to run correctly already
+already existing boxes. Tested on ubuntu 20.04 64 bit Oct 26 2020:
 ```
-ansible-playbook dev.yml -i inventory --tags "precheck"
+sudo apt install net-tools tmux vim golang rustc npm nodejs openjdk-14-jdk cmake build-essential ctags git python3-dev python3-pip inotify-tools
+sudo pip3 install ansible
+# test connection
+ansible -m ping -i inventory dev
+# run vim playbook
+ansible-playbook dev.yml -i inventory --tags "vim"
 ```
 
 ### notes about making the remote instances

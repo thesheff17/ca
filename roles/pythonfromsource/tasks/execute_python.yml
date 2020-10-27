@@ -1,0 +1,14 @@
+---
+- name: Async sleeping for batched_items
+  command:  "{{ async_item2 }}"
+  async: 300
+  poll: 0
+  loop: "{{ durations }}"
+  loop_control:
+    loop_var: "async_item2"
+  register: async_results2
+  args:
+    chdir: "/home/{{ansible_env.USER}}/Python-3.9.0/"
+    warn: false
+  tags: pythonfromsource
+...

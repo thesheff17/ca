@@ -1,5 +1,5 @@
 ---
-- name: waiting for youcomplete me to finish installing
+- name: waiting for youcompleteme to finish installing
   async_status:
     jid: "{{ async_result_item1.ansible_job_id }}"
   loop: "{{ async_results1.results }}"
@@ -9,4 +9,22 @@
   until: async_poll_results1.finished
   retries: 30
   tags: vim
+
+- name: waiting for python from source to finish installing
+  async_status:
+    jid: "{{ async_result_item2.ansible_job_id }}"
+  loop: "{{ async_results2.results }}"
+  loop_control:
+    loop_var: "async_result_item2"
+  register: async_poll_results2
+  until: async_poll_results2.finished
+  retries: 30
+  tags: pythonfromsource
+
+- name: adding location of python3 lib directory to path
+  lineinfile:
+    path: "/home/{{ansible_env.USER}}/.bashrc"
+    regexp: '^python-3.9.0'
+    line: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python-3.9.0/lib
+
 ...

@@ -1,4 +1,10 @@
 ---
+- name: fix permissions
+  command: chown -R youtube:youtube /home/{{ansible_env.USER}}/
+  become: true
+  args:
+   warn: false
+
 - name: golang version
   command: go version
   register: golang_version

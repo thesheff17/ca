@@ -1,0 +1,39 @@
+---
+  - name: download python3
+    get_url:
+      url: https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tar.xz
+      dest: /home/{{ansible_env.USER}}/Python-3.9.0.tar.xz
+    tags: pythonfromsource
+
+  - name: create python3 tar.xz directory
+    file:
+      path: /home/{{ansible_env.USER}}/Python-3.9.0/
+      state: directory
+      mode: '0755'
+    tags: pythonfromsource
+
+    # - name: create python3 prefix directory
+    #file:
+    #  path: /home/{{ansible_env.USER}}/Python-3.9.0-latest/
+    #  state: directory
+    #  mode: '0755'
+    #tags: pythonfromsource
+
+  - name: extract python3 file
+    unarchive:
+      remote_src: yes
+      src: /home/{{ansible_env.USER}}/Python-3.9.0.tar.xz
+      dest: /home/{{ansible_env.USER}}/
+    tags: pythonfromsource
+
+  - name: compiling python3 with async
+    vars:
+      my_commands1:
+        - "./configure --enable-optimizations --enable-loadable-sqlite-extensions --enable-shared --prefix=/usr/local/python-3.9.0"
+        - "make -j{{ ansible_processor_vcpus }}"
+        - sudo make install
+      durations: "{{ item }}"
+    include_tasks: execute_python.yml
+    loop: "{{ my_commands1 | batch(1) | list }}"
+    tags: pythonfromsource
+...

@@ -38,7 +38,7 @@
       dest: "/home/{{ansible_env.USER}}/.vim/bundle/YouCompleteMe"
     tags: vim
 
-  - name: running youcomplete me with async calls
+  - name: running youcompleteme with async calls
     vars:
       my_commands:
         - git submodule update --init --recursive
